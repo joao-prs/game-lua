@@ -1,4 +1,6 @@
 function love.load()
+    love.window.setTitle("Prototipo 1")
+    
     -- Carrega o arquivo de áudio
     audio = love.audio.newSource("song/AdhesiveWombat_Distortotron.mp3", "stream")
     
@@ -27,6 +29,7 @@ function love.draw()
     love.graphics.rectangle("fill", square.x, square.y, square.size, square.size) -- Desenha um retângulo preenchido (quadrado)
 end
 
+-- Janela
 function love.conf(t)
     t.window.title = "Meu Jogo"
     t.window.width = 800
