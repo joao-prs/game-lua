@@ -27,17 +27,22 @@ end
 
 function Player.update(dt)
     local dx, dy = 0, 0
-    
+
+
     if love.keyboard.isDown("up") then
         dy = dy - 1
+        currentRow = 6
     elseif love.keyboard.isDown("down") then
         dy = dy + 1
-    end
-
-    if love.keyboard.isDown("left") then
+        currentRow = 4
+    elseif love.keyboard.isDown("left") then
         dx = dx - 1
+        currentRow = 5
     elseif love.keyboard.isDown("right") then
         dx = dx + 1
+        currentRow = 3
+    else
+        currentRow = 1
     end
 
     if dx ~= 0 or dy ~= 0 then
@@ -65,9 +70,16 @@ end
 function Player.draw()
     --love.graphics.rectangle("fill", x, y, 50, 50)
     --love.graphics.draw(playerSprite, x, y)
+    local scaleX = 1
+    if love.keyboard.isDown("left") then
+        scaleX = -1 -- Inverte horizontalmente se estiver indo para a esquerda
+    end
 
-    local quad = love.graphics.newQuad((currentFrame - 1) * frameWidth, 0, frameWidth, frameHeight, playerSprite:getDimensions())
-    love.graphics.draw(playerSprite, quad, x, y)
+--    local quad = love.graphics.newQuad((currentFrame - 1) * frameWidth, 0, frameWidth, frameHeight, playerSprite:getDimensions())
+--    love.graphics.draw(playerSprite, quad, x, y)
+--end
+local quad = love.graphics.newQuad((currentFrame - 1) * frameWidth, (currentRow - 1) * frameHeight, frameWidth, frameHeight, playerSprite:getDimensions())
+    love.graphics.draw(playerSprite, quad, x, y, 0, scaleX, 1) -- Escala X negativa para inverter horizontalmente
 end
 
 
