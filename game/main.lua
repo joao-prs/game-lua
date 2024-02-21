@@ -6,7 +6,7 @@ local zoom = 3 -- Fator de zoom
 -- main
 function love.load()
     love.window.setTitle("Prototipo 1")
-    love.window.setFullscreen(false, "exclusive")
+    --love.window.setFullscreen(false, "exclusive")
     
     -- Define a resolução da janela
     love.window.setMode(1200, 800, {
