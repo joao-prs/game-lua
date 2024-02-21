@@ -1,7 +1,7 @@
 -- local var
 local player = require("player")
 local fullscreen = require("fullscreen")
-local zoom = 2 -- Fator de zoom
+local zoom = 3 -- Fator de zoom
 
 -- main
 function love.load()

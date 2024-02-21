@@ -25,47 +25,54 @@ end
 function Player.update(dt)
     local dx, dy = 0, 0
 
-
+    -- movimento vestical
     if love.keyboard.isDown("up") then
         dy = dy - 1
         currentRow = 6
-        direcao = "cima"
         movendo = true
+        direcao = "cima"
     elseif love.keyboard.isDown("down") then
         dy = dy + 1
         currentRow = 4
-        direcao = "baixo"
         movendo = true
+        direcao = "baixo"
     end
-    
+
+    -- movimento horizontal
     if love.keyboard.isDown("left") then
         dx = dx - 1
         currentRow = 5
-        spriteScaleX = -1 -- Define a escala X como -1 para inverter horizontalmente
-        direcao = "direita"
+        spriteScaleX = -1 -- Define a escala X como -1
+        direcao = "esquerda"
         movendo = true
     elseif love.keyboard.isDown("right") then
         dx = dx + 1
         currentRow = 5
-        spriteScaleX = 1 -- Define a escala X como 1 para manter a orientação normal
-        direcao = "esquerda"
+        spriteScaleX = 1 -- Define a escala X como 1 (normal)
+        direcao = "direita"
         movendo = true
-    else
-        --currentRow = 1
+    end
+
+    -- se o deslocamento for 0, ele fica parado
+    if dx == 0 and dy == 0 then
         movendo = false
     end
 
     -- animacoes dele parado para cada direcao
     if movendo == false and direcao == "cima" then
         currentRow = 3
+        print("parado_cima \n")
     elseif movendo == false and direcao == "esquerda" then
         currentRow = 2
         spriteScaleX = -1
+        print("parado_esquerda \n")
     elseif movendo == false and direcao == "direita" then
         currentRow = 2
         spriteScaleX = 1
+        print("parado_direita \n")
     elseif movendo == false and direcao == "baixo" then
         currentRow = 1
+        print("parado_baixo \n")
     end
 
     -- Atualiza a animação do sprite
@@ -85,7 +92,6 @@ function Player.update(dt)
         dx = dx * speed
         dy = dy * speed
     end
-
     x = x + dx * dt
     y = y + dy * dt
 
@@ -95,16 +101,17 @@ end
 
 function Player.draw()
 
-    local offsetX = 0
-    if spriteScaleX == -1 then
-        offsetX = frameWidth
-    end
-
     local quad = love.graphics.newQuad((currentFrame - 1) * frameWidth, (currentRow - 1) * frameHeight, frameWidth, frameHeight, playerSprite:getDimensions())
-    love.graphics.draw(playerSprite, quad, x - offsetX, y, 0, spriteScaleX, 1)
+    love.graphics.draw(playerSprite, quad, x, y)
+
+    --local offsetX = 0
+    --if spriteScaleX == -1 then
+    --    offsetX = frameWidth
+    --end
+
+    --local quad = love.graphics.newQuad((currentFrame - 1) * frameWidth, (currentRow - 1) * frameHeight, frameWidth, frameHeight, playerSprite:getDimensions())
+    --love.graphics.draw(playerSprite, quad, x - offsetX, y, 0, spriteScaleX, 1)
 end
-
-
 
 function Player.keypressed(key)
     -- Você pode adicionar manipulação de teclas adicionais aqui, se necessário
