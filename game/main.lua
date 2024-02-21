@@ -1,7 +1,7 @@
 -- local var
 local player = require("player")
 local fullscreen = require("fullscreen")
-
+local zoom = 2 -- Fator de zoom
 
 -- main
 function love.load()
@@ -15,10 +15,10 @@ function love.load()
         minheight = 300    -- Altura mínima da janela
     })
     
-    -- Carrega o arquivo de áudio
-    audio = love.audio.newSource("song/AdhesiveWombat_Distortotron.mp3", "stream")
-    -- Inicia a reprodução do áudio
-    love.audio.play(audio)
+    --- -- Carrega o arquivo de áudio
+    --- audio = love.audio.newSource("song/AdhesiveWombat_Distortotron.mp3", "stream")
+    --- -- Inicia a reprodução do áudio
+    --- love.audio.play(audio)
 
     -- player
     player.load()
@@ -36,6 +36,7 @@ function love.update(dt)
 end
 
 function love.draw()
+    love.graphics.scale(zoom)
     player.draw()
 end
 
@@ -45,5 +46,5 @@ end
 
 -- finalizar -----------------------------------------------------------------------
 function love.quit()
-    love.audio.stop()
+    -- love.audio.stop()
 end
