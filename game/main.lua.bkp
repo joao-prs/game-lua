@@ -1,8 +1,3 @@
--- local var
-local player = require("player")
-local fullscreen = require("fullscreen")
-
-
 -- main
 function love.load()
     love.window.setTitle("Prototipo 1")
@@ -19,31 +14,29 @@ function love.load()
     audio = love.audio.newSource("song/AdhesiveWombat_Distortotron.mp3", "stream")
     -- Inicia a reprodução do áudio
     love.audio.play(audio)
+    
+    love.graphics.setBackgroundColor(0, 0, 0) -- Define a cor de fundo como preto (0, 0, 0)
+    square = {
+        x = 100,
+        y = 100,
+        size = 50,
+        color = {0.5, 0, 0} -- Vermelho (R, G, B)
+    }
+end
 
-    -- player
-    player.load()
+function love.draw()
+    love.graphics.setColor(square.color) -- Define a cor para o quadrado
+    love.graphics.rectangle("fill", square.x, square.y, square.size, square.size) -- Desenha um retângulo preenchido (quadrado)
 end
 
 -- funcao rezise tela
+local fullscreen = require("fullscreen")
 function love.keypressed(key, scancode, isrepeat)
     fullscreen.love_keypressed(key, scancode, isrepeat)
 end
 
 
-
-function love.update(dt)
-    player.update(dt)
-end
-
-function love.draw()
-    player.draw()
-end
-
-function love.keypressed(key)
-    player.keypressed(key)
-end
-
--- finalizar -----------------------------------------------------------------------
+-- finalizar
 function love.quit()
     love.audio.stop()
 end
